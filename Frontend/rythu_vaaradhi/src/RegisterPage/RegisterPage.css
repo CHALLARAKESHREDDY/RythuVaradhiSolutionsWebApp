@@ -1,0 +1,49 @@
+.RegisterDiv{
+
+    height:100vh;
+    width:100%;
+   background-image: url("https://img.freepik.com/free-vector/grass-against-blue-sky_1048-5376.jpg?w=900&t=st=1705432600~exp=1705433200~hmac=05a427c36320c2853dbe16bca7e6fdff5a56086eba3b92a9bad15557a21296f1");
+    display: flex;background-size: cover;
+    background-position:top;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top:40px;
+
+}
+
+/* GenderRadioInput.css */
+
+.radio-label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 15px; /* Increase font size */
+    font-weight: 500;
+    margin-Left:7px;
+    margin-Right:17px;
+
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    
+  }
+  
+  .radio-label input {
+    margin-right: 5px;
+    transform: scale(1.5); /* Increase radio button size */
+ 
+    
+  }
+  
+  /* Change color to red when checked */
+
+  
+
+  .radio-label input:checked {
+    border-color: green; /* Change border color to green when checked */
+    background-color: lightgreen; /* Change background color to lightgreen when checked */
+    color: green; /* Change text color to green when checked */
+  }
+

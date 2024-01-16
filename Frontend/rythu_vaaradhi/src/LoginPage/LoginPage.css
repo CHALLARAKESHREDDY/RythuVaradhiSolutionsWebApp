@@ -1,0 +1,110 @@
+.WelcomeDiv{
+
+    height:100vh;
+    width:100%;
+   background-image: url("https://img.freepik.com/free-vector/nature-background-grassy-landscape_1048-1305.jpg?w=740&t=st=1705337413~exp=1705338013~hmac=dc02f9c2cce72ffeefac995c8bb5be55051397c6e13d8835a5dcfc5f0409b794");
+    display: flex;background-size: cover;
+    background-position: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top:130px;
+
+}
+
+.Welcome-Head-Para{
+   width:auto;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.WelcomeHead{
+    font-family: "Times New Roman", Times, serif;
+    margin-bottom: 7px;
+    letter-spacing: 0.8px;
+    color:#015441 ;
+    font-size: 35px;
+    
+
+}
+
+.WelcomePara{
+    color:#343736;
+    font-size: 18px;
+    font-weight: 600;
+    
+}
+
+.LabelNumber{
+    font-size: 14px;
+    font-weight: 500;
+    color: #3C3F3E;
+    margin-left:3px;
+    margin-bottom:10px;
+}
+
+.Welcome-Input-Div{
+    display: flex;
+    flex-direction: column;
+    width:80%;
+    height:230px;
+    justify-content: space-around;
+    align-items: center;
+    margin-top:30px;
+}
+
+.Welcome-Input{
+    padding: 10px 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #3C3F3E;
+    cursor: pointer;
+    background-color:#F0FCF6;
+    border: 1px solid grey;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    width:100%;
+    font-family: cursive;
+    margin-top:4px;
+}
+
+.Welcome-Input:hover{
+    background-color: #C2FCCB;
+
+}
+
+.Welcome-Continue{
+    padding: 12px 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #3C3F3E;
+    cursor: pointer;
+    background-color:#F0FCF6;
+    border: 1px solid grey;
+    border-radius: 22px;
+    transition: background-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    width:100%;
+    background-color:#FC6252;
+    border-color:#FC6252;
+    color:#ffffff;
+    cursor: 'pointer',
+
+
+}
+
+.Welcome-Continue:hover{
+    background-color: #ECABA4;
+
+}

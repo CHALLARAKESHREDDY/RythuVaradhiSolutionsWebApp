@@ -1,0 +1,62 @@
+.OTPDiv{
+
+    height:100vh;
+    width:100%;
+   background-image: url("https://img.freepik.com/free-vector/grass-against-blue-sky_1048-5376.jpg?w=900&t=st=1705432600~exp=1705433200~hmac=05a427c36320c2853dbe16bca7e6fdff5a56086eba3b92a9bad15557a21296f1");
+    display: flex;background-size: cover;
+    background-position: center;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+
+}
+
+.OTP-Continue{
+    padding: 12px 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #3C3F3E;
+    cursor: pointer;
+    background-color:#F0FCF6;
+    border: 1px solid grey;
+    border-radius: 22px;
+    transition: background-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    width:78%;
+    background-color:#FC6252;
+    border-color:#FC6252;
+    color:#ffffff;
+    cursor: 'pointer',
+
+
+}
+
+.OTP-Continue:hover{
+    background-color: #ECABA4;
+
+}
+
+.OtpInput{
+    width: 42px;
+    height: 42px;
+    margin-right: 12px;
+    font-size: 18px;
+    text-align: center;
+    border: 1.3px solid #818181;
+    border-radius: 5px;
+    outline: none;
+    font-family: cursive;
+}
+
+.Otp-Main-Container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width:100%;
+    margin-Bottom:32px;
+}

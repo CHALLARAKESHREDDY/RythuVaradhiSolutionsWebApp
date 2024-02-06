@@ -1,0 +1,29 @@
+POST http://localhost:402/register
+Content-Type: application/json
+
+{
+  "fullName": "chintu",
+  "phoneNumber": "9392324854"
+}
+
+###
+
+POST http://localhost:402/mycrops
+Content-Type: application/json
+
+{
+    "crops":["cotton","chilli","paddy","cauli flower"],
+    "farmerId":"65bdcb060440aa1128c89cbb"
+}
+
+####
+
+POST http://localhost:408/verify
+Content-Type: application/json
+
+{
+  "phoneNumber": "+919030827070",
+  "otp": "123456"
+}
+
+

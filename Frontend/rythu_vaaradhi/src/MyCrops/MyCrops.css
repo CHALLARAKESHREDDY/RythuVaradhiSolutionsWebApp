@@ -1,0 +1,101 @@
+.Dropdown-Div{
+    display: flex;
+    margin-top:10px;
+    width:80%;
+    font-size: 17px;
+    display: flex;
+    justify-content: space-around;
+    font-weight: 480;
+}
+
+.dropdown {
+    max-height: 200px; /* Set a maximum height for the dropdown */
+    overflow-y: scroll; /* Enable vertical scrolling */
+    scroll-behavior: auto;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  }
+  
+  .dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .dropdown li {
+    margin: 5px 0;
+  }
+
+  .Add-Button{
+    padding:5px;
+    background-color: #ABEBC6;
+    height:35px;
+    width:70px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .MyCrops-Head{
+    color: #025F11;
+  }
+  
+  .Crops-List{
+    margin:10px;
+    width:100%;
+    text-align: center;
+  }
+
+  .List-Item{
+    list-style: none;
+    display: flex;
+    width:100%;
+    justify-content: space-between;
+    align-items: center;
+    padding:10px;
+    border-bottom: 1px solid #025F11;
+    font-size: 18px;
+  }
+
+  .confirm-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .confirm-dialog {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  /* Add any additional styles for your confirmation dialog as needed */
+  
+  .Yes-Button{
+    font-weight: 10px;
+    background-color: #AAB7B8;
+    padding:3px;
+    border-radius: 6px;
+    width:55px;
+    margin:5px;
+  }
+
+  .No-Button{
+    background-color: #F1948A;
+    font-weight: 10px;
+    padding:3px;
+    border-radius: 6px;
+    width:55px;
+    margin:5px;
+  }

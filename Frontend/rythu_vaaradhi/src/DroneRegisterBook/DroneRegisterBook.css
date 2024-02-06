@@ -1,0 +1,59 @@
+.Cattle-Sell-Buy{
+    height:100vh;
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#EAFAF1 ;
+}
+
+.Cattle-Buttons-Div{
+    width:80%;
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Cattle-Buttons{
+    padding: 8px 12px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #3C3F3E;
+    cursor: pointer;
+    background-color:#F0FCF6;
+    border: 1px solid #015441;
+    border-radius: 17px;
+    transition: background-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:80%;
+    margin:15px 0px;
+
+}
+
+
+
+.ContinueButton{
+    background-color:#FC6252;
+    border-color:#FC6252;
+    color:#ffffff;
+
+  }
+
+  .Cattle-Buttons:hover {
+    background-color: #C2FCCB;
+  }
+
+  .ContinueButton:hover{
+    background-color: #ECABA4;
+  }
+
+  .Cattle-Buttons.selected {
+    background-color: green;
+    color: white;
+    /* Add any other styles for the selected button */
+  }
+  

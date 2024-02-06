@@ -13,11 +13,13 @@
 }
 
 .Welcome-Head-Para{
-   width:auto;
+   width:100%;
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
+   text-align: center;
+
 }
 
 .WelcomeHead{
@@ -26,14 +28,19 @@
     letter-spacing: 0.8px;
     color:#015441 ;
     font-size: 35px;
+    text-align: center;
+
     
 
 }
 
 .WelcomePara{
+    width:90%;
     color:#343736;
     font-size: 18px;
     font-weight: 600;
+    align-self: center;
+    text-align: center;
     
 }
 
@@ -49,7 +56,7 @@
     display: flex;
     flex-direction: column;
     width:80%;
-    height:230px;
+    height:240px;
     justify-content: space-around;
     align-items: center;
     margin-top:30px;
@@ -57,7 +64,7 @@
 
 .Welcome-Input{
     padding: 10px 12px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 500;
     color: #3C3F3E;
     cursor: pointer;

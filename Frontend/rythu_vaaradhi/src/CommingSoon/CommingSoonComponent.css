@@ -1,0 +1,17 @@
+.CommingSoon-Popup{
+    width:90%;
+    height:50px;
+    background-color:#EC7063;
+    color:#ffff;
+    position: fixed;
+    top:15%;
+    left:5%;
+    right:5%;
+    border-radius:10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.CommingSoon-Head{
+    color:#ffffff;
+}

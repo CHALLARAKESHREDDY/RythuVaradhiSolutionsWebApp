@@ -1,0 +1,27 @@
+.Bottom-Nav{
+    position: fixed;
+    width:95%;
+    height:65px;
+    bottom:1%;
+    right:0;
+    left:0;
+    margin: auto;
+    background-color: #0B5345;
+    border-radius: 60px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color:#ffffff;
+}
+
+.Home-Head{
+    color:#ffffff;
+    font-weight: 500;
+}
+
+.Home-Icon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

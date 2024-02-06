@@ -1,0 +1,81 @@
+.Cattle-Image-Item{
+    width:98%;
+    height:230px;
+    margin:auto;
+    border-radius: 10px;
+}
+
+
+.slider-container {
+    background-color:#A3E4D7;
+    padding: 40px;
+    
+}
+.slick-track{
+    width:100%;
+}/*.Slider-Cattle{
+    width:100%;
+    height:auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slick-active{
+    color:green;
+    width:100%;
+    height:auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.Slider-Item{
+    width:100%;
+    height:auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding:auto;
+}*/
+
+.blog-container{
+    width:100%;
+    height:100vh;
+    text-align: center;
+    background-color:#EAFAF1 ;
+    display: flex;
+    flex-direction: column;
+    padding:15px;
+}
+
+.blog-info{
+    width:100%;
+    height:auto;
+    text-align: center;
+}
+
+/* Add these styles to change the color of the default arrows */
+
+  .Cattle-Details{
+    width:85%;
+    height:auto;
+    padding:20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .Cattle-Details-Head{
+    align-self: center;
+  }
+
+  .blog-details-title{
+    font-weight: 500;
+    font-size: 16px;
+    margin:3px;
+  }
+

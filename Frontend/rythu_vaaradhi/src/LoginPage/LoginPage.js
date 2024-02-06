@@ -11,6 +11,7 @@ function LoginPage() {
   const handleContinue = (value) => {
     if (mobileNumber.trim().length === 10) {
       // Mobile number is entered, navigate to /register
+      navigate("/otp")
       
     } else {
       // Show warning message
@@ -31,7 +32,7 @@ function LoginPage() {
             <h1 className="WelcomeHead">
               {value.language === 'English' ? 'Welcome Back' : 'పునఃస్వాగతం'}
             </h1>
-            <h3 className="WelcomePara" style={value.language === 'English' ? { fontSize: '18px' } : { fontSize: '14px' }}>
+            <h3 className="WelcomePara" style={value.language === 'English' ? { fontSize: '18px' } : { fontSize: '15px' }}>
               {value.language === 'English' ? 'You have been missed' : 'వ్యవసాయాన్ని అందమైన వృత్తిగా మారుద్దాం'}
             </h3>
           </div>
@@ -85,8 +86,10 @@ const styles = {
   },
   register: {
     fontSize: '15px',
-    marginTop: '20px',
+    marginTop: '0px',
     color: '#555',
+    textAlign: 'center'
+
   },
   registerLink: {
     color: '#049976',

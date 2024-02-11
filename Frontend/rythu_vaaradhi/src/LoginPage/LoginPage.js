@@ -15,10 +15,10 @@ function LoginPage() {
     setTimeout(() => setErrorMsg(''), 2000);
   };
 
-  const handleContinue = async (value) => {
+  const handleContinue = async () => {
     if (mobileNumber.trim().length === 10) {
       try {
-        const response = await axios.post('https://strikeout-serverside.onrender.com/farmer-login', { mobileNumber });
+        const response = await axios.post('https://rythu-vaaradhi-backend.onrender.com/farmer-login', { mobileNumber });
         navigate("/home", { state: { message: "Login successful", fromLoginPage: true } });
       } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {
@@ -67,9 +67,10 @@ function LoginPage() {
             <button className="Welcome-Continue" onClick={() => handleContinue(language)}>
               {language === 'English' ? 'Continue' : 'కొనసాగించు'}
             </button>
-            <h3 className="Register">
-              {language === 'English' ? 'Are you a new member?' : 'మీరు కొత్త సభ్యులా?'}
-              <span className="RegisterLink" onClick={handleRegisterClick}>
+            
+            <h3 style={styles.register}>
+              {language === 'English' ? '   Are you a new member ?' : 'మీరు కొత్త సభ్యులా ?'}
+              <span style={styles.registerLink} onClick={() => handleRegisterClick()}>
                 {language === 'English' ? 'Register now' : 'ఇప్పుడు నమోదు చేసుకోండి'}
               </span>
             </h3>
@@ -81,10 +82,37 @@ function LoginPage() {
 }
 
 const styles = {
+  label: {
+    display: 'block',
+    marginBottom: '4px',
+    color: '#333',
+    position: 'relative',
+  },
   required: {
     color: 'red',
     marginLeft: '2px',
     fontSize: '18px',
+  },
+  register: {
+    fontSize: '15px',
+    marginTop: '0px',
+    color: '#555',
+    textAlign: 'center'
+
+  },
+  registerLink: {
+    color: '#049976',
+    marginLeft: '5px',
+    textDecoration: 'underline',
+    cursor: 'pointer',
+  },
+  warning: {
+    color: 'red',
+    fontSize: '13px',
+    marginLeft: '10px',
+    marginBottom:"15px",
+    marginTop:"0px",
+    alignSelf: 'flex-start',
   },
 };
 

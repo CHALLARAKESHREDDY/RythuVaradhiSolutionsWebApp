@@ -36,7 +36,7 @@ function RegisterPage() {
     }
 
     try {
-      let response = await axios.post('https://strikeout-serverside.onrender.com/farmer-register', {
+      let response = await axios.post('https://rythu-vaaradhi-backend.onrender.com/farmer-register', {
         fullName:farmerData.fullName,phoneNumber:farmerData.mobileNumber
       })
          Cookies.set('fullName', (farmerData.fullName).toString(), { expires: 1 });

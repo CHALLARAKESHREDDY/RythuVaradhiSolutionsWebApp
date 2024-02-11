@@ -20,7 +20,7 @@ const CattleShop = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('https://strikeout-serverside.onrender.com/cattle-images');
+        const response = await axios.get('https://rythu-vaaradhi-backend.onrender.com/cattle-images');
         setImages(response.data);
         setIsLoading(false)
       } catch (error) {
@@ -64,7 +64,7 @@ const CattleShop = () => {
   };
 
   const ImageDisplay = ({ imageId }) => {
-    const imageUrl = `https://strikeout-serverside.onrender.com/cattle-images/${imageId}?index=0`;
+    const imageUrl = `https://rythu-vaaradhi-backend.onrender.com/cattle-images/${imageId}?index=0`;
 
     return (
       <div>

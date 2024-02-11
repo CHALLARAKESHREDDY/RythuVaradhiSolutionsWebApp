@@ -177,7 +177,7 @@ app.post("/farmer-login", async (req, res) => {
     console.error(e.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-});
+})
 
 
 

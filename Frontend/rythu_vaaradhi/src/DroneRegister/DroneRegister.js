@@ -43,7 +43,7 @@ const DroneRegister = () => {
     formData.append('description', description);
 
     try {
-      const response = await axios.post('https://strikeout-serverside.onrender.com/upload-drone-details', formData);
+      const response = await axios.post('https://rythu-vaaradhi-backend.onrender.com/upload-drone-details', formData);
       // Display an alert for success
       alert('Drone Registered successfully');
       // You can handle additional success behavior here if needed

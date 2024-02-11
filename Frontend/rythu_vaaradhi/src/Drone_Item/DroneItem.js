@@ -7,9 +7,9 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const ImageDisplay = ({ imageId }) => {
-  const imageUrl0 = `http://localhost:402/drone-images/${imageId}?index=0`;
-  const imageUrl1 = `http://localhost:402/drone-images/${imageId}?index=1`;
-  const imageUrl2 = `http://localhost:402/drone-images/${imageId}?index=2`;
+  const imageUrl0 = `https://rythu-vaaradhi-backend.onrender.com/drone-images/${imageId}?index=0`;
+  const imageUrl1 = `https://rythu-vaaradhi-backend.onrender.com/drone-images/${imageId}?index=1`;
+  const imageUrl2 = `https://rythu-vaaradhi-backend.onrender.com/drone-images/${imageId}?index=2`;
 
  
   const settings = {
@@ -47,7 +47,7 @@ const DroneItem = () => {
   useEffect(() => {
     const getCattleItemData = async () => {
       try {
-        const response = await fetch(`https://strikeout-serverside.onrender.com/drone_item/${id}`);
+        const response = await fetch(`https://rythu-vaaradhi-backend.onrender.com/drone_item/${id}`);
         const data = await response.json();
         setDroneData(data);
         setIsLoading(false);

@@ -15,7 +15,7 @@ const DroneBooking = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('http://localhost:402/drone-details');
+        const response = await axios.get('https://rythu-vaaradhi-backend.onrender.com/drone-details');
         setImages(response.data);
         console.log(response.data[0])
         setIsLoading(false)
@@ -37,7 +37,7 @@ const DroneBooking = () => {
   };
 
   const ImageDisplay = ({ imageId }) => {
-    const imageUrl = `https://strikeout-serverside.onrender.com/drone-images/${imageId}?index=0`;
+    const imageUrl = `https://rythu-vaaradhi-backend.onrender.com/drone-images/${imageId}?index=0`;
 
     return (
       <>

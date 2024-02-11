@@ -20,7 +20,7 @@ function OTP() {
     const phoneNumber=Cookies.get("phoneNumber")
     const fullName = Cookies.get('fullName')
         try{
-        const response=await axios.post('https://strikeout-serverside.onrender.com/otp-verification',{otp:otp,fullName:fullName,phoneNumber:phoneNumber})
+        const response=await axios.post('https://rythu-vaaradhi-backend.onrender.com/otp-verification',{otp:otp,fullName:fullName,phoneNumber:phoneNumber})
         navigate("/home", { state: { message:response.data.message, fromOTP: true } });
 
           

@@ -45,7 +45,7 @@ const CattlePost = () => {
     formData.append('description', description);
 
     try {
-      const response = await axios.post('https://strikeout-serverside.onrender.com/upload-cattle-details', formData);
+      const response = await axios.post('https://rythu-vaaradhi-backend.onrender.com/upload-cattle-details', formData);
       // Display an alert for success
       alert('Cattle post uploaded successfully');
       console.log(response.data);

@@ -60,13 +60,14 @@
 /* Add these styles to change the color of the default arrows */
 
   .Cattle-Details{
-    width:85%;
+    width:100%;
     height:auto;
-    padding:20px;
+    padding:15px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    padding-left:30px;
   }
 
   .Cattle-Details-Head{

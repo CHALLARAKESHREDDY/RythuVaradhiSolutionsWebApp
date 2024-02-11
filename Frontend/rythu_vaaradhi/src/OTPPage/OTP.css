@@ -60,3 +60,12 @@
     width:100%;
     margin-Bottom:32px;
 }
+
+.Resend-Button{
+    background-color: transparent;
+    border-style: none;
+    padding:3px;
+    font-weight: 500;
+
+
+}

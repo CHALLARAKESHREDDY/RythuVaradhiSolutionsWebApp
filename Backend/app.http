@@ -2,8 +2,8 @@ POST http://localhost:402/register
 Content-Type: application/json
 
 {
-  "fullName": "chintu",
-  "phoneNumber": "9392324854"
+  "fullName": "ramesh",
+  "phoneNumber": "9550307261"
 }
 
 ###
@@ -13,7 +13,7 @@ Content-Type: application/json
 
 {
     "crops":["cotton","chilli","paddy","cauli flower"],
-    "farmerId":"65bdcb060440aa1128c89cbb"
+    "farmerId":"65c3a76c789c138f47300a3a"
 }
 
 ####

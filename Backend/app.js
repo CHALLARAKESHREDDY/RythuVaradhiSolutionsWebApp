@@ -49,6 +49,10 @@ const farmerSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'CattlePost',
   }],
+  DronePosts:[{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'DronePost'
+  }]
 });
 // Create Mongoose Model
 const cropSchema = new mongoose.Schema({
@@ -100,9 +104,44 @@ const CattlePostSchema = new mongoose.Schema({
   },
 });
 
+const DronePostSchema = new mongoose.Schema({
+  data1: {
+    type: Buffer,
+    required: true,
+  },
+  data2:{
+    type:Buffer,
+    require:false,
+  },
+  data3:{
+    type:Buffer,
+    required:false
+  },
+  price: {
+    type: Number,
+    required: true,
+  },
+  description: {
+    type: String,
+    required: false,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
+  farmer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Farmer',
+    required: true,
+  },
+});
+
+
+
 const Farmer = mongoose.model('Farmer', farmerSchema);
 const Crop = mongoose.model('Crop', cropSchema);
 const CattlePost = mongoose.model('CattlePost', CattlePostSchema);
+const DronePost= mongoose.model('DronePosts',DronePostSchema);
 
 
 
@@ -124,12 +163,52 @@ const initializeApp = async () => {
 initializeApp();
 
 // Register a farmer
-app.post("/register", async (req, res) => {
-  const { fullName, phoneNumber, email } = req.body;
+app.post("/farmer-login", async (req, res) => {
+  const {mobileNumber} = req.body;
+  console.log(mobileNumber)
   try {
-    const farmer = await Farmer.create({ fullName, phoneNumber, email });
-    console.log(farmer._id.toString());
-    res.status(201).json({ message: 'Farmer registered successfully', farmer });
+    const existingFarmer = await Farmer.findOne({ phoneNumber:mobileNumber });
+    if (existingFarmer) {
+      return res.status(201).json({ message: 'Login Successfull' });
+    }
+        return  res.status(409).json({ message: "User not Found" })
+  
+   } catch (e) {
+    console.error(e.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+
+app.post("/farmer-register", async (req, res) => {
+  const { fullName, phoneNumber} = req.body;
+  try {
+    // Check if phone number already exists in the database
+    const existingFarmer = await Farmer.findOne({ phoneNumber });
+    if (existingFarmer) {
+      return res.status(400).json({ error: 'User already exists' });
+    }
+    return res.status(201).json({fullName,phoneNumber})
+  } catch (e) {
+    console.error(e.message);
+     return res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+const generatedOtp="1234"
+
+
+app.post("/otp-verification", async (req, res) => {
+  const { otp ,fullName,phoneNumber} = req.body;
+  try {
+    if (otp.join("")===generatedOtp){
+      const farmer = await Farmer.create({ fullName:fullName, phoneNumber:phoneNumber });
+      return res.status(201).json({ message: 'Farmer registered successfully', farmer });
+    }
+    res.status(401).json({error:"Invalid OTP"})
+
   } catch (e) {
     console.error(e.message);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -170,7 +249,7 @@ const upload = multer({ storage: storage });
 
 // Upload image
 // Upload image
-app.post("/upload", upload.fields([{ name: 'data1', maxCount: 1 }, { name: 'data2', maxCount: 1 }, { name: 'data3', maxCount: 1 }]), async (req, res) => {
+app.post("/upload-cattle-details", upload.fields([{ name: 'data1', maxCount: 1 }, { name: 'data2', maxCount: 1 }, { name: 'data3', maxCount: 1 }]), async (req, res) => {
   try {
     if (!req.files || Object.keys(req.files).length !== 3) {
       return res.status(400).json({ error: 'Exactly three files are required' });
@@ -234,7 +313,7 @@ console.log(imageList)
   }
 });*/
 
-app.get("/images", async (req, res) => {
+app.get("/cattle-images", async (req, res) => {
   try {
     // Retrieve all images from MongoDB with associated farmer details
     const images = await CattlePost.find().populate({
@@ -258,7 +337,6 @@ app.get("/images", async (req, res) => {
     }));
 
     res.status(200).json(imageList);
-    console.log(imageList);
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -272,7 +350,7 @@ app.get("/images", async (req, res) => {
 // ...
 
 // Add a new route to serve individual images
-app.get("/image/:id", async (req, res) => {
+/*app.get("/cattle-image/:id", async (req, res) => {
   try {
     const cattlePost = await CattlePost.findById(req.params.id);
 
@@ -298,9 +376,9 @@ app.get("/image/:id", async (req, res) => {
     console.error(error.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-});
+});*/
 
-app.get('/cattle_item/:id', async (req, res) => {
+/*app.get('/cattle_item/:id', async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -320,17 +398,14 @@ app.get('/cattle_item/:id', async (req, res) => {
       description: product.description,
       // Add other relevant fields if needed
     };
-    console.log(result)
     res.status(200).json(result);
   } catch (error) {
-    console.error(error.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-});
+});*/
 
 
-// Backend endpoint to get images for a cattle post
-app.get("/Cattle_Images/:id", async (req, res) => {
+app.get("/cattle_item/:id", async (req, res) => {
   try {
     const cattlePost = await CattlePost.findById(req.params.id).populate({
       path: 'farmer',
@@ -344,10 +419,8 @@ app.get("/Cattle_Images/:id", async (req, res) => {
 
 
     res.json({ ...cattlePost.toObject()});
-    console.log(cattlePost)
 
   } catch (error) {
-    console.error(error.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
@@ -376,7 +449,7 @@ app.get("/Cattle_Images/:id", async (req, res) => {
 }); */
 
 
-app.get("/images/:id", async (req, res) => {
+app.get("/cattle-images/:id", async (req, res) => {
   try {
     const cattlePost = await CattlePost.findById(req.params.id);
 
@@ -405,10 +478,135 @@ app.get("/images/:id", async (req, res) => {
 });
 
 
+app.post("/upload-drone-details", upload.fields([{ name: 'data1', maxCount: 1 }, { name: 'data2', maxCount: 1 }, { name: 'data3', maxCount: 1 }]), async (req, res) => {
+  try {
+    if (!req.files || Object.keys(req.files).length !== 3) {
+      return res.status(400).json({ error: 'Exactly three files are required' });
+    }
+
+    const { farmerId, price, location, description } = req.body;
+
+    const farmer = await Farmer.findById(farmerId);
+    const droneDetails= await DronePost.create({
+      data1: req.files['data1'][0].buffer,
+      data2: req.files['data2'][0].buffer,
+      data3: req.files['data3'][0].buffer,
+      price: price,
+      location: location,
+      description: description,
+      farmer: farmer._id,
+    });
+
+    farmer.DronePosts.push(droneDetails);
+    await farmer.save();
+
+    res.status(201).json({ message: 'Drone Registered successfully', droneDetails });
+  } catch (e) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get("/drone-details", async (req, res) => {
+  try {
+    // Retrieve all images from MongoDB with associated farmer details
+    const images = await DronePost.find().populate({
+      path: 'farmer',
+      select: 'fullName phoneNumber price location description',
+    });
+
+    // Map the images to send relevant information to the frontend
+    const imageList = images.map(image => ({
+      _id: image._id,
+      farmerName: image.farmer.fullName,
+      farmerPhoneNumber: image.farmer.phoneNumber,
+      price: image.price,
+      location: image.location,
+      description: image.description,
+      data1: image.data1, // Convert Buffer to base64 for sending in response
+      data2: image.data2.toString('base64'),
+      data3: image.data3.toString('base64'),
+      // Add other relevant fields if needed
+    }));
+
+    res.status(200).json(imageList);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+app.get("/drone-images/:id", async (req, res) => {
+  try {
+    const dronePost = await DronePost.findById(req.params.id);
+
+    if (!dronePost) {
+      return res.status(404).json({ error: 'Drone not found' });
+    }
+
+    const images = [dronePost.data1, dronePost.data2, dronePost.data3];
+
+    // Extract the image index from the request (assuming you send the index as a query parameter)
+    const imageIndex = req.query.index || 0; // Default to 'unknown' if color is not provided
+
+    if (imageIndex < 0 || imageIndex >= images.length) {
+      return res.status(404).json({ error: 'Image index out of bounds' });
+    }
+
+    // Set the appropriate content type for the response
+    res.setHeader('Content-Type', 'image/jpeg'); // Adjust content type based on your image type
+
+    // Send the specified image data as the response
+    res.send(images[imageIndex]);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+app.get("/drone_item/:id", async (req, res) => {
+  try {
+    const dronePost = await DronePost.findById(req.params.id).populate({
+      path: 'farmer',
+      select: 'fullName phoneNumber price location description',
+    });;
+
+    if (!dronePost) {
+      return res.status(404).json({ error: 'Drone not found' });
+    }
+
+
+
+    res.json({ ...dronePost.toObject()});
+
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 
 
 
+const { Vonage } = require('@vonage/server-sdk')
 
+const vonage = new Vonage({
+  apiKey: "68dc4220",
+  apiSecret: "cOguYUMWiuVgHWo2"
+})
 
+function generateOTP() {
+  return Math.floor(1000 + Math.random() * 9000).toString(); // Generate a 4-digit OTP
+}
+
+const from = "Vonage APIs"
+const to = "917569140843"
+const text = `Dear Customer,Your OTP for Rythu Vaaradhi is ${generateOTP()}. Use this passcode for Login.Thank you`
+
+async function sendSMS() {
+    await vonage.sms.send({to, from, text})
+        .then(resp => { console.log('Message sent successfully'); console.log(resp); })
+        .catch(err => { console.log('There was an error sending the messages.'); console.error(err); });
+}

@@ -20,11 +20,11 @@ const CattleShop = () => {
   useEffect(() => {
     const fetchImages = async () => {
       try {
-        const response = await axios.get('http://localhost:402/images');
+        const response = await axios.get('https://strikeout-serverside.onrender.com/cattle-images');
         setImages(response.data);
         setIsLoading(false)
       } catch (error) {
-        console.error('Error fetching images:', error);
+        console.error('Error fetching Cattle Shop:', error);
       }
     };
 
@@ -64,7 +64,7 @@ const CattleShop = () => {
   };
 
   const ImageDisplay = ({ imageId }) => {
-    const imageUrl = `http://localhost:402/image/${imageId}`;
+    const imageUrl = `https://strikeout-serverside.onrender.com/cattle-images/${imageId}?index=0`;
 
     return (
       <div>
@@ -85,7 +85,14 @@ const CattleShop = () => {
             <option value="Cow">Cow</option>
             <option value="Ox">Ox</option>
             <option value="Buffalo">Buffalo</option>
-            {/* Add more categories as needed */}
+            <option value="Hen">Hen</option>
+            <option value="Pig">Pig</option>
+            <option value="Sheep">Sheep</option>
+            <option value="Goat">Goat</option>
+            <option value="Horse">Horse</option>
+            <option value="Rabbit">Rabbit</option>
+            <option value="Duck">Duck</option>
+            <option value="Camel">Camel</option>
           </select>
   <select value={sortOrder} onChange={(e) => onSortChange(e.target.value)} className="Filtering-Cattle">
             <option value="">Sort by Price</option>

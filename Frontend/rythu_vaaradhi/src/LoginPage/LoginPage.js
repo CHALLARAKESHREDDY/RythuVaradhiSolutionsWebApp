@@ -2,67 +2,75 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MyContext from '../Context/Context';
 import './LoginPage.css';
+import axios from 'axios';
+import ErrorMessagePuop from '../ErrorMessagePopup/ErrorMessagePopup';
 
 function LoginPage() {
   const [mobileNumber, setMobileNumber] = useState('');
-  const [showWarning, setShowWarning] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
   const navigate = useNavigate();
 
-  const handleContinue = (value) => {
+  const handleTransportationClick = (message) => {
+    setErrorMsg(message);
+    setTimeout(() => setErrorMsg(''), 2000);
+  };
+
+  const handleContinue = async (value) => {
     if (mobileNumber.trim().length === 10) {
-      // Mobile number is entered, navigate to /register
-      navigate("/otp")
-      
+      try {
+        const response = await axios.post('https://strikeout-serverside.onrender.com/farmer-login', { mobileNumber });
+        navigate("/home", { state: { message: "Login successful", fromLoginPage: true } });
+      } catch (error) {
+        if (error.response && error.response.data && error.response.data.message) {
+          handleTransportationClick(error.response.data.message);
+        } else {
+          handleTransportationClick("An error occurred. Please try again later.");
+        }
+      }
     } else {
-      // Show warning message
-      setShowWarning(true);
+      setErrorMsg('Please enter a valid mobile number');
     }
   };
 
-  const handleRegisterClick = (value) => {
-    // Handle the register link click, you can use value.language to get the selected language
+  const handleRegisterClick = () => {
     navigate('/register');
   };
 
   return (
     <MyContext.Consumer>
-      {(value) => (
+      {({ language }) => (
         <div className="WelcomeDiv">
           <div className="Welcome-Head-Para">
             <h1 className="WelcomeHead">
-              {value.language === 'English' ? 'Welcome Back' : 'పునఃస్వాగతం'}
+              {language === 'English' ? 'Welcome Back' : 'పునఃస్వాగతం'}
             </h1>
-            <h3 className="WelcomePara" style={value.language === 'English' ? { fontSize: '18px' } : { fontSize: '15px' }}>
-              {value.language === 'English' ? 'You have been missed' : 'వ్యవసాయాన్ని అందమైన వృత్తిగా మారుద్దాం'}
+            <h3 className="WelcomePara" style={{ fontSize: language === 'English' ? '18px' : '15px' }}>
+              {language === 'English' ? 'You have been missed' : 'వ్యవసాయాన్ని అందమైన వృత్తిగా మారుద్దాం'}
             </h3>
           </div>
+          {errorMsg && <ErrorMessagePuop text={errorMsg} />}
           <div className="Welcome-Input-Div">
             <div style={{ width: '100%' }}>
-              <label htmlFor="number" className="LabelNumber" style={styles.label}>
-                {value.language === 'English' ? ' Mobile number' : 'మొబైల్ నంబర్'}
+              <label htmlFor="number" className="LabelNumber">
+                {language === 'English' ? 'Mobile number' : 'మొబైల్ నంబర్'}
                 <span style={styles.required}>*</span>
               </label>
               <input
                 type="number"
                 id="number"
                 className="Welcome-Input"
-                placeholder={value.language === 'English' ? 'Enter your number' : 'మీ నంబర్‌ని నమోదు చేయండి'}
+                placeholder={language === 'English' ? 'Enter your number' : 'మీ నంబర్‌ని నమోదు చేయండి'}
                 value={mobileNumber}
                 onChange={(e) => setMobileNumber(e.target.value)}
               />
             </div>
-            {showWarning && (
-              <div className="WarningMessage" style={styles.warning}>
-                {value.language === 'English' ? 'Please enter a valid mobile number' : 'దయచేసి చెల్లుబాటు అయ్యే మొబైల్ నంబర్‌ను నమోదు చేయండి'}
-              </div>
-            )}
-            <button className="Welcome-Continue" onClick={() => handleContinue(value)}>
-              {value.language === 'English' ? '  Continue' : '   కొనసాగించు'}
+            <button className="Welcome-Continue" onClick={() => handleContinue(language)}>
+              {language === 'English' ? 'Continue' : 'కొనసాగించు'}
             </button>
-            <h3 style={styles.register}>
-              {value.language === 'English' ? '   Are you a new member ?' : 'మీరు కొత్త సభ్యులా ?'}
-              <span style={styles.registerLink} onClick={() => handleRegisterClick(value)}>
-                {value.language === 'English' ? 'Register now' : 'ఇప్పుడు నమోదు చేసుకోండి'}
+            <h3 className="Register">
+              {language === 'English' ? 'Are you a new member?' : 'మీరు కొత్త సభ్యులా?'}
+              <span className="RegisterLink" onClick={handleRegisterClick}>
+                {language === 'English' ? 'Register now' : 'ఇప్పుడు నమోదు చేసుకోండి'}
               </span>
             </h3>
           </div>
@@ -73,37 +81,10 @@ function LoginPage() {
 }
 
 const styles = {
-  label: {
-    display: 'block',
-    marginBottom: '4px',
-    color: '#333',
-    position: 'relative',
-  },
   required: {
     color: 'red',
     marginLeft: '2px',
     fontSize: '18px',
-  },
-  register: {
-    fontSize: '15px',
-    marginTop: '0px',
-    color: '#555',
-    textAlign: 'center'
-
-  },
-  registerLink: {
-    color: '#049976',
-    marginLeft: '5px',
-    textDecoration: 'underline',
-    cursor: 'pointer',
-  },
-  warning: {
-    color: 'red',
-    fontSize: '13px',
-    marginLeft: '10px',
-    marginBottom:"15px",
-    marginTop:"0px",
-    alignSelf: 'flex-start',
   },
 };
 

@@ -1,0 +1,99 @@
+
+
+.Cattle-Shoping-List{
+    width:97%;
+    height:auto;
+    display:flex;
+    justify-content: flex-start;
+    align-items:center;
+    flex-wrap:wrap;
+}
+
+.Cattle-List-Item{
+    background-color:#ABEBC6;
+    width:46%;
+    height:220px;
+    margin:auto;
+    list-style: none;
+    border-radius: 10px;
+    text-align: center;
+    padding:10px;
+    margin-Top:10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.Cattle-Image{
+    width:77%;
+    height:110px;
+    background-size: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 10px;;
+}
+
+.Cattle-Post-Details{
+    width:100%;
+    text-align: left;
+}
+
+.Cattle-Price{
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.Cattle-Item{
+    font-size: 14px;
+}
+
+.Cattle-Filter-Div{
+    display: flex;
+width:97%;
+justify-content: flex-end;
+}
+
+.Filtering-Cattle{
+    outline:none;
+    border:1px solid #7DCEA0;
+    background-color: #D0ECE7;
+    border-radius: 5px;
+    height:25px;
+    margin:auto;
+}
+
+.Loading-Cattle{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+    text-align: center;
+    align-self: center;
+}
+
+.Drone-List{
+    width:95%;
+}
+
+.Drone-List-Item{
+    width:97%;
+    background-color: #ABEBC6;
+    list-style: none;
+    border-radius: 6px;
+    height:auto;
+    padding:10px;
+    
+}
+
+.Drone-Image{
+    width:70%;
+    height:95px;
+    border-radius: 7px;
+}
+
+.Drone-Post-Details{
+    margin-left:15px;
+    height:95px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:flex-start;
+}

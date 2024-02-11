@@ -2,21 +2,46 @@ import React, { useRef, useState, useEffect } from 'react';
 import MyContext from '../Context/Context';
 import './OTP.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import ErrorMessagePuop from '../ErrorMessagePopup/ErrorMessagePopup';
+import Cookies from 'js-cookie';
 
 function OTP() {
   const [otp, setOtp] = useState(['', '', '', '']);
   const otpInputs = useRef(Array(4).fill(null).map(() => React.createRef()));
   const [seconds, setSeconds] = useState(30); // Initial countdown time
   const navigate = useNavigate();
+  const [resendEnabled, setResendEnabled] = useState(false); // Initially disable resend button
+  const [errorMsg,setErrorMsg]=useState({show: false, message: ''})
 
-  const handleOTPContinue=()=>{
-    navigate("/home")
+
+
+  const handleOTPContinue = async() => {
+    const phoneNumber=Cookies.get("phoneNumber")
+    const fullName = Cookies.get('fullName')
+        try{
+        const response=await axios.post('https://strikeout-serverside.onrender.com/otp-verification',{otp:otp,fullName:fullName,phoneNumber:phoneNumber})
+        navigate("/home", { state: { message:response.data.message, fromOTP: true } });
+
+          
+
+    }catch (e){
+        handleErrorClick(e.response.data.error)
+    }
   }
+
+  const handleErrorClick = (message) => {
+    setErrorMsg({show: true, message}); // Show the error message
+    setTimeout(() => setErrorMsg({show: false, message: ''}), 2000); // Hide the error message after 2 seconds
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
       if (seconds > 0) {
         setSeconds((prevSeconds) => prevSeconds - 1);
+      } else {
+        setResendEnabled(true); // Enable resend button after timer completes
+        clearInterval(timer); // Clear the timer
       }
     }, 1000);
 
@@ -44,6 +69,12 @@ function OTP() {
     setOtp(newOtp);
   };
 
+  const handleResendOTP = () => {
+    // Handle resend OTP functionality here
+    setSeconds(30); // Reset the timer
+    setResendEnabled(false); // Disable resend button again
+  };
+
   return (
     <MyContext.Consumer>
       {(value) => (
@@ -58,18 +89,22 @@ function OTP() {
                 : 'దయచేసి ఎంటర్ చేసిన మొబైల్ నంబర్ పైగా దగ్గరగా పొందిన OTP నమోదు చేయండి'}
             </p>
           </div>
-
+          {
+            errorMsg.show ? <ErrorMessagePuop text={errorMsg.message} /> : null
+          }
           <div className="Welcome-Input-Div" style={{ height: 'auto' }}>
             <div className="Otp-Main-Container">
               <div className="OtpInputContainer">
                 {otp.map((digit, index) => (
                   <input
+                  autoFocus={index === 0 ? true : false}
                     key={index}
                     type="number"
                     className="OtpInput"
                     value={digit}
                     onChange={(e) => handleOtpChange(index, e.target.value)}
                     ref={otpInputs.current[index]}
+
                   />
                 ))}
               </div>
@@ -78,10 +113,13 @@ function OTP() {
           <button className="OTP-Continue" onClick={handleOTPContinue}>
             {value.language === 'English' ? 'Continue' : 'కొనసాగించు'}
           </button>
+          
+        
           <h3 style={{ ...styles.ResendOTP(seconds)}}>
-          <span style={{textDecoration: "underline",...styles.ResendOTP(seconds)}}>
+          <button onClick={handleResendOTP} disabled={!resendEnabled} className="Resend-Button">
+          <span style={{textDecoration: "underline",...styles.ResendOTP(seconds)}}  onClick={handleResendOTP} disabled={!resendEnabled}>
               {value.language === 'English' ? 'Resend OTP ' : 'మళ్లీ OTP పంపండి '}
-            </span>
+            </span></button>
        
             <span style={styles.In}> {value.language === 'English' ? 'in' : 'లో'} </span>
             <span style={styles.Seconds}>{seconds < 10 ? `0${seconds}` : seconds} {value.language === 'English' ? 'Seconds' : 'సెకన్లు'}</span>
@@ -108,4 +146,3 @@ const styles = {
 };
 
 export default OTP;
-

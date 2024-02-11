@@ -8,7 +8,7 @@ function DroneRegisterBook(){
 
   const handleContinueButton = () => {
     if (selectedButton) {
-      history(`/Drone_${selectedButton}`);
+      history(`/drone_${selectedButton}`);
     } else {
       // Show a warning message if no button is selected
       alert('Please select either "Book a Drone" or "Register Drone" before continuing.');

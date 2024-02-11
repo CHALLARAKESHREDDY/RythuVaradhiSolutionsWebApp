@@ -17,6 +17,9 @@ import CattleShop from './CattleShop/CattleShop';
 import CattleSellBuy from './Cattle_Sell_Buy/CattleSellBuy';
 import CattleItem from './Cattle_Item/CatteItem';
 import DroneRegisterBook from './DroneRegisterBook/DroneRegisterBook';
+import DroneRegister from './DroneRegister/DroneRegister';
+import DroneBooking from './DroneBooking/DroneBooking';
+import DroneItem from './Drone_Item/DroneItem';
 
 function App() {
   const [language, changeLanguage] = useState(Cookies.get("language"))
@@ -45,6 +48,10 @@ function App() {
           <Route path="/cattle_shop" element={<CattleShop />} />
           <Route path="/cattle_item/:id" element={<CattleItem />} />
           <Route path="/drone_spraying" element={<DroneRegisterBook />} />
+          <Route path="/drone_register" element={<DroneRegister />} />
+          <Route path="drone_booking" element={<DroneBooking />} />
+          <Route path="/drone/:id" element={<DroneItem />} />
+
          </Routes>
       </Router>
     </MyContext.Provider>

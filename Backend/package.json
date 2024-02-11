@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@vonage/server-sdk": "^3.12.2",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "fast-two-sms": "^3.0.0",

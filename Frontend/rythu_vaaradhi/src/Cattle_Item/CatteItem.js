@@ -7,9 +7,9 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 const ImageDisplay = ({ imageId }) => {
-  const imageUrl0 = `http://localhost:402/images/${imageId}?index=0`;
-  const imageUrl1 = `http://localhost:402/images/${imageId}?index=1`;
-  const imageUrl2 = `http://localhost:402/images/${imageId}?index=2`;
+  const imageUrl0 = `http://localhost:402/cattle-images/${imageId}?index=0`;
+  const imageUrl1 = `http://localhost:402/cattle-images/${imageId}?index=1`;
+  const imageUrl2 = `http://localhost:402/cattle-images/${imageId}?index=2`;
 
  
   const settings = {
@@ -47,7 +47,7 @@ const CattleItem = () => {
   useEffect(() => {
     const getCattleItemData = async () => {
       try {
-        const response = await fetch(`http://localhost:402/Cattle_Images/${id}`);
+        const response = await fetch(`https://strikeout-serverside.onrender.com/cattle_item/${id}`);
         const data = await response.json();
         setCattleData(data);
         setIsLoading(false);
@@ -62,7 +62,6 @@ const CattleItem = () => {
 
   const renderCattleItemDetails = () => {
     const { category, price, description, location,farmer} =cattleData;
-    console.log(farmer.fullName)
 
     return (
       <div className="blog-info">
@@ -77,7 +76,7 @@ const CattleItem = () => {
         <div className="Cattle-Details">
           <h3 className="Cattle-Details-Head">Owner Details</h3>
         <h3 className="blog-details-title">Name : {farmer.fullName}</h3>
-        <h3 className="blog-details-title">Phone : { farmer.phoneNumber}</h3>
+        <h3 className="blog-details-title">Phone : {farmer.phoneNumber}</h3>
         <h3 className="blog-details-title">Location : { location}</h3>
 
         </div>

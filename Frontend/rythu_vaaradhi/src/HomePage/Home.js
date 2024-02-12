@@ -14,7 +14,7 @@ function Home(){
   
   useEffect(() => {
     const { state } = location;
-    if (state && state.message && state.fromOTP) {
+    if (state && state.message && ((state.fromOTP ) || (state.fromLoginPage))) {
       setPopupMessage(state.message);
       setTimeout(() => setPopupMessage(''), 3000);
     }
@@ -35,6 +35,9 @@ function Home(){
          }
          {
                popupMessage && <ErrorMessagePuop text={popupMessage} color={"#145A32"}/>
+         }
+         {
+            popupMessage && <ErrorMessagePuop text={popupMessage} color={"#145A32"} />
          }
 
             <div className="Home-Content">

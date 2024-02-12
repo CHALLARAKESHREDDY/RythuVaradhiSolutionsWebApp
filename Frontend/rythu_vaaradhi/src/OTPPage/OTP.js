@@ -3,8 +3,11 @@ import MyContext from '../Context/Context';
 import './OTP.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
+
 import ErrorMessagePuop from '../ErrorMessagePopup/ErrorMessagePopup';
 import Cookies from 'js-cookie';
+import Popup from 'reactjs-popup';
 
 function OTP() {
   const [otp, setOtp] = useState(['', '', '', '']);
@@ -13,15 +16,31 @@ function OTP() {
   const navigate = useNavigate();
   const [resendEnabled, setResendEnabled] = useState(false); // Initially disable resend button
   const [errorMsg,setErrorMsg]=useState({show: false, message: ''})
+  const [popupMessage,setPopupMessage]=useState(true)
+  const location = useLocation();
 
 
+  const timer=setTimeout(()=>{
+    setPopupMessage(false)
+  },2000)
 
+
+  
   const handleOTPContinue = async() => {
     const phoneNumber=Cookies.get("phoneNumber")
     const fullName = Cookies.get('fullName')
+    const {state} = location;
+
+ 
         try{
-        const response=await axios.post('https://rythu-vaaradhi-backend.onrender.com/otp-verification',{otp:otp,fullName:fullName,phoneNumber:phoneNumber})
-        navigate("/home", { state: { message:response.data.message, fromOTP: true } });
+          if (state && (state.fromLoginPage)){
+            const response=await axios.post("https://rythu-vaaradhi-backend.onrender.com/otp-verification-login",{otp:otp})
+            navigate("/home",{state:{message:"Login Successfull",fromLoginPage:true}})
+          }else if (state && state.fromRegister){
+            const response=await axios.post('https://rythu-vaaradhi-backend.onrender.com/otp-verification-register',{otp:otp,fullName:fullName,phoneNumber:phoneNumber})
+            navigate("/home", { state: { message:response.data.message, fromOTP: true } });
+          }
+        
 
           
 
@@ -69,10 +88,15 @@ function OTP() {
     setOtp(newOtp);
   };
 
-  const handleResendOTP = () => {
-    // Handle resend OTP functionality here
-    setSeconds(30); // Reset the timer
-    setResendEnabled(false); // Disable resend button again
+  const handleResendOTP = async () => {
+    try {
+      const phoneNumber = Cookies.get("phoneNumber");
+      await axios.post('https://rythu-vaaradhi-backend.onrender.com/resend-otp', { phoneNumber });
+      setSeconds(30); // Reset the timer
+      setResendEnabled(false); // Disable resend button again
+    } catch (error) {
+      handleErrorClick("Failed to resend OTP. Please try again.");
+    }
   };
 
   return (
@@ -92,6 +116,10 @@ function OTP() {
           {
             errorMsg.show ? <ErrorMessagePuop text={errorMsg.message} /> : null
           }
+          {
+               popupMessage && <ErrorMessagePuop text={"OTP sent Successfully"} color={"#145A32"}/>
+         }
+
           <div className="Welcome-Input-Div" style={{ height: 'auto' }}>
             <div className="Otp-Main-Container">
               <div className="OtpInputContainer">

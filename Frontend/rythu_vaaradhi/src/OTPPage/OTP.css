@@ -3,7 +3,8 @@
     height:100vh;
     width:100%;
    background-image: url("https://img.freepik.com/free-vector/grass-against-blue-sky_1048-5376.jpg?w=900&t=st=1705432600~exp=1705433200~hmac=05a427c36320c2853dbe16bca7e6fdff5a56086eba3b92a9bad15557a21296f1");
-    display: flex;background-size: cover;
+    display: flex;
+    background-size: cover;
     background-position: center;
     flex-direction: column;
     justify-content: center;

@@ -19,7 +19,7 @@ function LoginPage() {
     if (mobileNumber.trim().length === 10) {
       try {
         const response = await axios.post('https://rythu-vaaradhi-backend.onrender.com/farmer-login', { mobileNumber });
-        navigate("/home", { state: { message: "Login successful", fromLoginPage: true } });
+        navigate("/otp", { state: {fromLoginPage: true } });
       } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {
           handleTransportationClick(error.response.data.message);

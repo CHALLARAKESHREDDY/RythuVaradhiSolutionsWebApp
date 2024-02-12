@@ -39,9 +39,9 @@ function RegisterPage() {
       let response = await axios.post('https://rythu-vaaradhi-backend.onrender.com/farmer-register', {
         fullName:farmerData.fullName,phoneNumber:farmerData.mobileNumber
       })
-         Cookies.set('fullName', (farmerData.fullName).toString(), { expires: 1 });
-         Cookies.set("phoneNumber",(farmerData.mobileNumber),{expires :1})
-          navigate("/otp");
+         Cookies.set('fullName', (farmerData.fullName).toString(), { expires: 3 });
+         Cookies.set("phoneNumber",(farmerData.mobileNumber),{expires :3})
+          navigate("/otp", { state: {fromRegister:true} });
     }
       catch(e){
         handleErrorClick(e.response.data.error)

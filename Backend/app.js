@@ -5,6 +5,8 @@ const twilio = require("twilio");
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
+const { MongoClient } = require('mongodb');
+
 
 
 const app = express();
@@ -143,6 +145,33 @@ const Crop = mongoose.model('Crop', cropSchema);
 const CattlePost = mongoose.model('CattlePost', CattlePostSchema);
 const DronePost= mongoose.model('DronePosts',DronePostSchema);
 
+/*const dbName="rythu_vaaradhi"
+
+const collectionName="farmers"
+
+async function createIndex(){
+  const client = new MongoClient(dbURL)
+   try {
+    await client.connect();
+
+    const database = client.db(dbName);
+    const collection = database.collection(collectionName);
+
+    // Create index on the 'phoneNumber' field
+    await collection.createIndex({ phoneNumber: 1 }, { unique: true });
+
+    console.log('Index created successfully on the phoneNumber field.');
+  } catch (error) {
+    console.error('Error creating index:', error);
+  } finally {
+    await client.close();
+  }
+}
+
+createIndex();*/
+
+
+
 
 
 
@@ -162,10 +191,11 @@ const initializeApp = async () => {
 
 initializeApp();
 
+
+
 // Register a farmer
 app.post("/farmer-login", async (req, res) => {
   const {mobileNumber} = req.body;
-  console.log(mobileNumber)
   try {
     const existingFarmer = await Farmer.findOne({ phoneNumber:mobileNumber });
     if (existingFarmer) {
@@ -174,7 +204,6 @@ app.post("/farmer-login", async (req, res) => {
         return  res.status(409).json({ message: "User not Found" })
   
    } catch (e) {
-    console.error(e.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 })
@@ -200,12 +229,27 @@ app.post("/farmer-register", async (req, res) => {
 const generatedOtp="1234"
 
 
-app.post("/otp-verification", async (req, res) => {
+app.post("otp-verification-register", async (req, res) => {
   const { otp ,fullName,phoneNumber} = req.body;
   try {
     if (otp.join("")===generatedOtp){
       const farmer = await Farmer.create({ fullName:fullName, phoneNumber:phoneNumber });
       return res.status(201).json({ message: 'Farmer registered successfully', farmer });
+    }
+    res.status(401).json({error:"Invalid OTP"})
+
+  } catch (e) {
+    console.error(e.message);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+app.post("/otp-verification-login", async (req, res) => {
+  const { otp} = req.body;
+  try {
+    if (otp.join("")===generatedOtp){
+      return res.status(201).json({ message: 'login successfully'});
     }
     res.status(401).json({error:"Invalid OTP"})
 

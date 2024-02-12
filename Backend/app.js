@@ -229,7 +229,7 @@ app.post("/farmer-register", async (req, res) => {
 const generatedOtp="1234"
 
 
-app.post("otp-verification-register", async (req, res) => {
+app.post("/otp-verification-register", async (req, res) => {
   const { otp ,fullName,phoneNumber} = req.body;
   try {
     if (otp.join("")===generatedOtp){

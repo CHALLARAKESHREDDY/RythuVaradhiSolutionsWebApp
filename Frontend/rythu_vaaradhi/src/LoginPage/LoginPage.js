@@ -4,6 +4,7 @@ import MyContext from '../Context/Context';
 import './LoginPage.css';
 import axios from 'axios';
 import ErrorMessagePuop from '../ErrorMessagePopup/ErrorMessagePopup';
+import Cookies from 'js-cookie';
 
 function LoginPage() {
   const [mobileNumber, setMobileNumber] = useState('');
@@ -19,6 +20,8 @@ function LoginPage() {
     if (mobileNumber.trim().length === 10) {
       try {
         const response = await axios.post('https://rythu-vaaradhi-backend.onrender.com/farmer-login', { mobileNumber });
+        Cookies.set("fullName",response.data.existingFarmer.fullName)
+        Cookies.set("phoneNumber",response.data.existingFarmer.phoneNumber)
         navigate("/otp", { state: {fromLoginPage: true } });
       } catch (error) {
         if (error.response && error.response.data && error.response.data.message) {

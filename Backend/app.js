@@ -199,7 +199,7 @@ app.post("/farmer-login", async (req, res) => {
   try {
     const existingFarmer = await Farmer.findOne({ phoneNumber:mobileNumber });
     if (existingFarmer) {
-      return res.status(201).json({ message: 'Login Successfull' });
+      return res.status(201).json({ message: 'Login Successfull' ,existingFarmer});
     }
         return  res.status(409).json({ message: "User not Found" })
   

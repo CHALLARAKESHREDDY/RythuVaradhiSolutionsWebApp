@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Cookies from 'js-cookie'
 import './App.css';
 import OpeningPage from './OpeningsPage/OpeningPage';
@@ -23,6 +23,8 @@ import DroneItem from './Drone_Item/DroneItem';
 
 function App() {
   const [language, changeLanguage] = useState(Cookies.get("language"))
+  const isLoggedIn = Cookies.get("loggedIn") === true;
+
 
   const updateLanguage = (newLanguage) => {
     changeLanguage(newLanguage);
@@ -34,6 +36,13 @@ function App() {
     <MyContext.Provider value={{ language, changeLanguage: updateLanguage }}>
       <Router>
         <Routes>
+        {isLoggedIn ? (
+            <>
+              <Route path="/" element={<Home />} />
+              <Navigate to="/home" replace />
+            </>
+          ) : (
+            <>
           <Route exact path="/" element={<OpeningPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
@@ -50,7 +59,9 @@ function App() {
           <Route path="/drone_spraying" element={<DroneRegisterBook />} />
           <Route path="/drone_register" element={<DroneRegister />} />
           <Route path="drone_booking" element={<DroneBooking />} />
-          <Route path="/drone/:id" element={<DroneItem />} />
+          <Route path="/drone/:id" element={<DroneItem />} /> 
+          </>
+          )}
 
          </Routes>
       </Router>

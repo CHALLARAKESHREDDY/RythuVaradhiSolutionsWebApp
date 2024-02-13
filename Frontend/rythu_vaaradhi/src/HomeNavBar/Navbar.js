@@ -20,6 +20,7 @@ import { NavLink } from 'react-router-dom';
 
 import './Navbar.css';
 import MyCrops from '../MyCrops/MyCrops';
+import Cookies from 'js-cookie';
 
 const Navbar = () => {
   const [showNavbar, setShowNavbar] = useState(false);
@@ -57,12 +58,12 @@ const Navbar = () => {
           modal
         >
           {(close) => (
-            <div className="Popup-Container">
+            <div className="Popup-Container" >
               <div className="IoClose-Container"><IoClose  onClick={close} style={{fontSize:"30px"}} className="IoClose"/></div>
               <div className="MyProfile">
                 <h3 className="Myprofile-Head"><FcBusinessman style={{fontSize:"21px",marginRight:"1px"}}/>MyProfile</h3>
-                <h2 className="Profile-Name">Challa Rakesh</h2>
-                <h3 className="Profile-Number"><FcCellPhone style={{fontSize:"21px",marginRight:"1px"}} />7569140843</h3>
+                <h2 className="Profile-Name">{Cookies.get("fullName")}</h2>
+                <h3 className="Profile-Number"><FcCellPhone style={{fontSize:"21px",marginRight:"1px"}} />{Cookies.get("phoneNumber")}</h3>
                 <button className="Profile-Edit">Edit Profile <GrFormNextLink style={{fontSize:"20px"}}/></button>
               </div>
               <div className="MyRewardsOrders">
@@ -89,6 +90,7 @@ const Navbar = () => {
               </div>
               <h3 className="App-Version">Version App:1.1.1</h3>
               </div>
+          
         
             
           )}

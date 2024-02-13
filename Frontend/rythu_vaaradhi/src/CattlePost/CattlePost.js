@@ -2,12 +2,12 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './CattlePost.css';
+import Cookies from 'js-cookie';
 
 const CattlePost = () => {
   const [file, setFile] = useState(null);
   const [additionalFiles1, setAdditionalFiles1] = useState(null);
   const [additionalFiles2, setAdditionalFiles2] = useState(null);
-  const [farmerId, setFarmerId] = useState('');
   const [category, setCategory] = useState('');
   const [price, setPrice] = useState('');
   const [location, setLocation] = useState('');
@@ -28,7 +28,7 @@ const CattlePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!file || !additionalFiles1 || !additionalFiles2 || !farmerId || !category || !price || !location || !description) {
+    if (!file || !additionalFiles1 || !additionalFiles2 || !category || !price || !location || !description) {
       // Display an alert for validation error
       alert('Please fill in all mandatory fields, including all three images');
       return;
@@ -38,7 +38,7 @@ const CattlePost = () => {
     formData.append('data1', file);
     formData.append('data2', additionalFiles1);
     formData.append('data3', additionalFiles2);
-    formData.append('farmerId', farmerId);
+    formData.append('farmerId', Cookies.get("farmer_id"));
     formData.append('category', category);
     formData.append('price', price);
     formData.append('location', location);
@@ -62,20 +62,6 @@ const CattlePost = () => {
     <div className="Cattle-Post">
       <h2>Sell your Cattle</h2>
       <form onSubmit={handleSubmit} className="Cattle-Form">
-      <div className="Form-Item">
-          <label htmlFor="Farmer" className="Label-Cattle">
-            Farmer ID:
-          </label>
-          <input
-            className="Cattle-Post-Input"
-            id="Farmer"
-            type="text"
-            value={farmerId}
-            onChange={(e) => setFarmerId(e.target.value)}
-            placeholder="Enter Farmer ID"
-          />
-        </div>
-        <br />
         <div className="Form-Item">
           <label htmlFor='Category' className="Label-Cattle">
             Category:

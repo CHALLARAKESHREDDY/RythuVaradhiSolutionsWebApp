@@ -35,14 +35,14 @@ function OTP() {
         try{
           if (state && (state.fromLoginPage)){
             const response=await axios.post("https://rythu-vaaradhi-backend.onrender.com/otp-verification-login",{otp:otp})
+            Cookies.set("LoggedIn",true,{expires:10})
             navigate("/home",{state:{message:"Login Successfull",fromLoginPage:true}})
           }else if (state && state.fromRegister){
+            Cookies.set("LoggedIn",true,{expires:10})
             const response=await axios.post('https://rythu-vaaradhi-backend.onrender.com/otp-verification-register',{otp:otp,fullName:fullName,phoneNumber:phoneNumber})
+            Cookies.set("farmer_id",response.data.farmer._id)
             navigate("/home", { state: { message:response.data.message, fromOTP: true } });
           }
-        
-
-          
 
     }catch (e){
         handleErrorClick(e.response.data.error)

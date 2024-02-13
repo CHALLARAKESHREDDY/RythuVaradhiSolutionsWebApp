@@ -28,7 +28,7 @@ function LoginPage() {
         }
       }
     } else {
-      setErrorMsg('Please enter a valid mobile number');
+      handleTransportationClick("please enter valid mobile number");
     }
   };
 
